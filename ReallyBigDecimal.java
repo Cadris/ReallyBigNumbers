@@ -130,13 +130,32 @@ public class ReallyBigDecimal {
     //Main Driver Function
     public static void main(String args[]){
         Scanner sc  = new Scanner(System.in);
+        Stopwatch_Nano stopwatch = new Stopwatch_Nano();
+
+        System.out.print("Enter The Number : ");
         ReallyBigDecimal num1 = new ReallyBigDecimal(sc.next());
+        
+        printStatus(num1);
+
+        System.out.print("Enter the Second Number : ");
+        String s_num = sc.next();
+
+        stopwatch.start();
+        boolean success = num1.add(s_num);
+        stopwatch.stop();
+
+        System.out.println("\nTime Taken : "+stopwatch.getElapsedTime()+"ns\n");
+        stopwatch.reset();
+
+        // long startTime = System.currentTimeMillis();
+        // boolean success = num1.add(s_num);
+        // long stopTime = System.currentTimeMillis();
+        // System.out.println("\nTime Taken : "+(stopTime - startTime)+"ms\n");
+
+        System.out.println("Add Status : "+success);
+        printStatus(num1);
+
+        
         sc.close();
-        
-        printStatus(num1);
-        boolean success = num1.add("23");
-        System.out.println("\nAdd Status : "+success);
-        printStatus(num1);
-        
     }
 }
