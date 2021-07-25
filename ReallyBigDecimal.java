@@ -1,161 +1,24 @@
-import java.util.Scanner;
-
 public class ReallyBigDecimal {
-
-    //Instance Variables
-    private int arr[];
-    private int length,maxLength;
+    private String number;
+    private char sign;
+    private int length;
 
     //Constructors
     public ReallyBigDecimal(){
-        this.maxLength=100;
-        this.arr = new int[maxLength];
-        length = 0;
+        this.number = "";
+        this.sign = '+';
+        this.length = 0;
     }
-    public ReallyBigDecimal(int maxLength){
-        this.maxLength=maxLength;
-        this.arr=new int[maxLength];
-        this.length=0;
-    }
-    public ReallyBigDecimal(String number){
-        if(number.length()>=100) this.maxLength=number.length()+100;
-        else this.maxLength=100;
-
-        arr = new int[maxLength];
-        this.assign(number);
-
-        this.length = number.length();
-    }
-
-    //To Display
-    public String toString(){
-        StringBuffer sb = new StringBuffer();
-        for(int i=0;i<this.length;i++) sb.append(this.arr[i]);
-        return sb.reverse().toString();
-    }
-
-    //Private Functions
-    private void printArr(){
-        for(int i=this.length-1;i>=0;i--) System.out.print(this.arr[i]+" ");
-        System.out.println();
-        for(int i=0;i<this.length;i++) System.out.print(this.arr[i]+" ");
-        System.out.println();
-    }
-    private boolean put(int number, int position){
-        try {
-            if(number<0 || number>9) throw new Exception();
-            if(position>this.maxLength) throw new Exception();
-
-            this.arr[position] = number;
-        } catch (Exception e) {
-            return false;
+    public ReallyBigDecimal(String _number){
+        if(_number.length()>0 && _number.charAt(0)=='-'){
+            this.sign='-';
+            this.number = _number.substring(1, number.length());
+        }else if(_number.length()>0){
+            this.sign = '+';
+            this.number = _number.substring(1, number.length());
+        }else if(_number.length()==0){
+            this.sign = '+';
+            this.number = "";
         }
-        return true;
-    }
-    private int getNumberAt(String number,int i){
-        return Integer.parseInt(""+number.charAt(number.length()-(i+1)));
-    }
-    
-
-    //Getters
-    public int getLength(){
-        return this.length;
-    }
-    public int getMaxLength(){
-        return this.maxLength;
-    }
-    public int[] getRawArray(){
-        return this.arr.clone();
-    }
-
-    //Setters
-    public boolean setMaxLength(int newLength){
-        //Todo
-        return true;
-    }
-
-    //Operations
-    public void assign(String number){
-        for(int i=0;i<number.length();i++){            
-            this.arr[i]=this.getNumberAt(number, i);
-        }
-    }
-
-    public boolean add(String number){
-        int ans=0,carry=0;
-        int i=0,j=0;
-        int operationLength=0;
-        //String tempAnswer="";
-        try {
-            while (true) {
-                if(j>=number.length()){
-                    if(carry==0)
-                        break;
-                }
-                if(i==maxLength) return false;
-
-                int temp = this.arr[i];i++;
-
-                if(j<number.length()) {
-                    temp+=this.getNumberAt(number, j);
-                    j++;
-                }
-                if(carry!=0){
-                    temp+=carry;
-                    carry=0;
-                }
-
-                ans = temp%10;
-                carry = temp/10;
-
-                this.put(ans, i-1);
-                operationLength++;
-            }
-        } catch (Exception e) {
-            return false;
-        }
-
-        this.length=operationLength;
-        return true;
-    }
-
-    //Public Static Functions
-    public static void printStatus(ReallyBigDecimal number){
-        System.out.println("Answer : "+number);
-        number.printArr();
-        System.out.println("Length : "+number.getLength());
-        System.out.println("Max Length : "+number.getMaxLength());
-    }
-
-    //Main Driver Function
-    public static void main(String args[]){
-        Scanner sc  = new Scanner(System.in);
-        Stopwatch_Nano stopwatch = new Stopwatch_Nano();
-
-        System.out.print("Enter The Number : ");
-        ReallyBigDecimal num1 = new ReallyBigDecimal(sc.next());
-        
-        printStatus(num1);
-
-        System.out.print("Enter the Second Number : ");
-        String s_num = sc.next();
-
-        stopwatch.start();
-        boolean success = num1.add(s_num);
-        stopwatch.stop();
-
-        System.out.println("\nTime Taken : "+stopwatch.getElapsedTime()+"ns\n");
-        stopwatch.reset();
-
-        // long startTime = System.currentTimeMillis();
-        // boolean success = num1.add(s_num);
-        // long stopTime = System.currentTimeMillis();
-        // System.out.println("\nTime Taken : "+(stopTime - startTime)+"ms\n");
-
-        System.out.println("Add Status : "+success);
-        printStatus(num1);
-
-        
-        sc.close();
     }
 }
