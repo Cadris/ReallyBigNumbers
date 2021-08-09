@@ -28,3 +28,5 @@ Special Classes  **For Benchmarking Time**
 |ReallyBigDecimal(ReallyBigDecimal obj)|Innitalises a ReallyBigDecimal Creates a Clone of the Really Big number Passed as the Parameter.|
 
 **Note** : Any Kind of Help is very useful and rewarding.
+
+**Devoloper's Notes** : add(number1, number2) works. Yea !!!!!!!!
