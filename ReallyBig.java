@@ -29,12 +29,13 @@ public class ReallyBig {
                     // } 
 
                     if(j>=len2 && carry==0){
-                        String allElse;
-                        if(carry==0){
-                            int end = len1-i;
-                            allElse = num1.getAllFromStartTo(end);
-                            ret.addAtFront(allElse);
-                        }
+                        if(i<=len1)
+                            ret.addAtFront(num1.getAllFromStartTo(len1-i));                            
+                        break;
+                    }
+                    if(i>=len1 && carry==0){
+                        if(j<=len2)
+                            ret.addAtFront(num2.getAllFromStartTo(len2-j));
                         break;
                     }
 
@@ -49,9 +50,10 @@ public class ReallyBig {
                     carry = temp/10;
 
                     ret.addAtFront(ans+"");
+                    temp=0;
 
                 } catch (Exception e) {
-                    if(debug == true) System.out.println("\n============\nError\n============\n");
+                    if(debug == true) System.out.println("\n============\n   Error\n============\n");
                     return null;
                 }
             }
