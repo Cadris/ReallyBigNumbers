@@ -34,7 +34,9 @@ public class ReallyBigDecimal {
         else
             return Integer.parseInt(""+ (this.number.charAt(i)));
     }
-
+    public String getAllFromStartTo(int i){
+        return number.substring(0, i);
+    }
     //Setters
     public boolean setNumber(String _number){ return assign(_number); }
     public boolean setSign(char sign){
@@ -66,7 +68,26 @@ public class ReallyBigDecimal {
         }        
         return true;
     }
-    
+    public boolean addAtBack(String i){
+        // if(i.equals("0")) return false;
+        if(this.length==0) assign(i);
+        else {
+            this.number = this.number + i;      //(number already Present) + (New Number)
+            this.length += i.length();
+        }
+        return true;
+    }
+    public boolean addAtFront(String i){
+        // if(i.equals("0")) return false;
+        if(this.length==0) assign(i+"");        
+        else {
+            this.number = i + this.number;      //(New Number) + (number already Present)
+            this.length += (i+"").length();
+        }
+        return true;
+    }
+
+
     //Display Methods
     @Override
     public String toString() {
